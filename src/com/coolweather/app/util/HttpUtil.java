@@ -6,14 +6,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.widget.Toast;
-
 public class HttpUtil {
 
-	public static void sendHttpRequest(final String address,final HttpCallbackListener listener) {
+	public static void sendHttpRequest(final String address,
+			final HttpCallbackListener listener) {
 
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
@@ -24,21 +23,22 @@ public class HttpUtil {
 					connection.setRequestMethod("GET");
 					connection.setConnectTimeout(8000);
 					connection.setReadTimeout(8000);
-					connection.setDoInput(true);
-					connection.setDoOutput(true);
+//					connection.setDoInput(true);
+//					connection.setDoOutput(true);
 					InputStream is = connection.getInputStream();
-					BufferedReader br = new BufferedReader(new InputStreamReader(is));
+					BufferedReader br = new BufferedReader(
+							new InputStreamReader(is));
 					StringBuilder response = new StringBuilder();
 					String line;
 					while ((line = br.readLine()) != null) {
 						response.append(line);
 					}
-					if(listener != null){
+					if (listener != null) {
 						listener.onFinish(response.toString());
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					if(listener != null){
+					if (listener != null) {
 						listener.onError(e);
 					}
 				} finally {
